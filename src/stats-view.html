@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Stats</title>
+		<link rel="stylesheet" href="./amcharts/style.css"	type="text/css">
+
+		<script src="./amcharts/amcharts.js" type="text/javascript"></script>
+		<script src="./amcharts/serial.js" type="text/javascript"></script>
+		<script src="./amcharts/amstock.js" type="text/javascript"></script>
+		<script src="./amcharts/themes/dark.js" type="text/javascript"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<script type="text/javascript">
+
+			var chartData1 = [];
+			var chartData2 = [];
+			var chartData3 = [];
+			var chartData4 = [];
+			var chartData5 = [];
+			var chartData6 = [];
+			var chartData7 = [];
+			var chartData8 = [];
+			var chartData9 = [];
+			var chartData10 = [];
+			var chartData11 = [];
+
+			generateChartData();
+			
+			function generateChartData() {
+				$.ajax({
+				    url: 'http://mac-mini.noip.me:3000/data',
+				    type: 'GET',
+				    success: function(data) {
+						if (document.body) {
+							document.body.style.backgroundColor = '#282828';
+						}
+						for(var i in data) {
+							var datei = new Date(data[i].timestamp * 1000);
+							chartData1.push({
+								date: datei,
+	 							value: data[i].cpu_temp,
+	 							volume: data[i].cpu_temp
+	 						});
+							chartData2.push({
+								date: datei,
+	 							value: data[i].cpu_fan_speed,
+	 							volume: data[i].cpu_fan_speed
+	 						});
+							chartData3.push({
+								date: datei,
+	 							value: data[i].cpu_usage_user,
+	 							volume: data[i].cpu_usage_user
+	 						});
+							chartData4.push({
+								date: datei,
+	 							value: data[i].cpu_usage_sys,
+	 							volume: data[i].cpu_usage_sys
+	 						});
+							chartData11.push({
+                                                                date: datei,
+                                                                value: data[i].cpu_usage_sys + data[i].cpu_usage_user,
+                                                                volume: data[i].cpu_usage_sys + data[i].cpu_usage_user
+                                                        });
+							chartData5.push({
+								date: datei,
+	 							value: data[i].cpu_usage_idle,
+	 							volume: data[i].cpu_usage_idle
+	 						});
+							chartData6.push({
+								date: datei,
+	 							value: data[i].mem_usage_wired,
+	 							volume: data[i].mem_usage_wired
+	 						});
+							chartData7.push({
+								date: datei,
+	 							value: data[i].mem_usage_active,
+	 							volume: data[i].mem_usage_active
+	 						});
+							chartData8.push({
+								date: datei,
+	 							value: data[i].mem_usage_inactive,
+	 							volume: data[i].mem_usage_inactive
+	 						});
+							chartData9.push({
+								date: datei,
+	 							value: data[i].mem_usage_used,
+	 							volume: data[i].mem_usage_used
+	 						});
+							chartData10.push({
+								date: datei,
+	 							value: data[i].mem_usage_free,
+	 							volume: data[i].mem_usage_free
+	 						});
+						}
+						AmCharts.makeChart("chartdiv", {
+							type: "stock",
+							theme: "dark",
+							categoryAxesSettings: {
+								maxSeries: 0,
+								minPeriod: "mm"
+							},
+							pathToImages: "./amcharts/images/",
+							dataSets: [{
+								title: "CPU Temperature",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData1,
+								categoryField: "date"
+							},
+
+							{
+								title: "CPU Fan Speed",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData2,
+								categoryField: "date"
+							},
+
+							{
+								title: "CPU Usage: User",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData3,
+								categoryField: "date"
+							},
+
+							{
+                                                                title: "CPU Usage: All",
+                                                                fieldMappings: [{
+                                                                        fromField: "value",
+                                                                        toField: "value"
+                                                                }, {
+                                                                        fromField: "volume",
+                                                                        toField: "volume"
+                                                                }],
+                                                                dataProvider: chartData11,
+                                                                categoryField: "date"
+                                                        },
+
+							{
+								title: "CPU Usage: System",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData4,
+								categoryField: "date"
+							},
+
+							{
+								title: "CPU Usage: Idle",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData5,
+								categoryField: "date"
+							},
+
+							{
+								title: "Memory Usage: Wired",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData6,
+								categoryField: "date"
+							},
+
+							{
+								title: "Memory Usage: Active",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData7,
+								categoryField: "date"
+							},
+
+							{
+								title: "Memory Usage: Inactive",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData8,
+								categoryField: "date"
+							},
+
+							{
+								title: "Memory Usage: Used",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData9,
+								categoryField: "date"
+							},
+
+							{
+								title: "Memory Usage: Free",
+								fieldMappings: [{
+									fromField: "value",
+									toField: "value"
+								}, {
+									fromField: "volume",
+									toField: "volume"
+								}],
+								dataProvider: chartData10,
+								categoryField: "date"
+							}],
+							
+							panels: [{
+								showCategoryAxis: true,
+								title: "Data",
+								percentHeight: 70,
+														
+								categoryAxis: {
+									gridThickness: 0
+								},
+
+								stockGraphs: [{
+									id: "g1",
+									valueField: "value",
+									comparable: true,
+									compareField: "value",
+									fillAlphas: 0.2
+								}],
+								stockLegend: {
+									periodValueTextComparing: "[[value.close]]",
+									periodValueTextRegular: "[[value.close]]"
+								}
+							}],
+
+							chartScrollbarSettings: {
+								graph: "g1"
+							},
+
+							chartCursorSettings: {
+								valueBalloonsEnabled: true,
+								//valueLineEnabled:true,
+								//valueLineBalloonEnabled:true
+							},
+							dataSetSelector: {
+								position: "top"
+							}
+						});
+							
+					}
+				});
+			}
+	</script>
+	</head>
+	<body style="background-color:#FFFFFF">
+		<div id="chartdiv" style="width:100%; height:100vh;"></div>
+	</body>
+
+</html>
