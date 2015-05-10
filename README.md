@@ -2,7 +2,7 @@
 
 ## About
 
-This software allows you to have a dashboard to monitor your server's CPU and memory usage. It uses ```cron``` to periodically run ```stats.sh``` and capture and store data in an ```sqlite``` database. The data is then exposed in a REST service in ```node``` and displayed in your browser using ```amcharts```.
+This software allows you to have a dashboard to monitor your server's CPU and memory usage. It uses ```cron``` to periodically capture and store data in an ```sqlite``` database. The data is then exposed in a ```node``` REST service and displayed in your browser using ```amcharts```.
 
 ## Screenshots
 
